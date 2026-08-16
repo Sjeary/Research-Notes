@@ -1,64 +1,64 @@
-# Diffusion, SDE, and Flow Foundations
+# 扩散模型、SDE 与 Flow 基础
 
-**Learning Notes · 2025-07-17**
+**学习笔记 · 2025-07-17**
 
-## Overview
+## 概览
 
-These notes follow a path through the mathematical foundations of diffusion models. They begin with Brownian motion and the Wiener process, connect particle trajectories to probability-density evolution, and then move through reverse-time SDEs, score matching, probability flow ODEs, guidance, and an introduction to Flow Matching.
+这份笔记沿着扩散模型的数学基础展开：从布朗运动和 Wiener 过程出发，将粒子的随机轨迹与概率密度演化联系起来，再依次讨论逆向 SDE、score matching、Probability Flow ODE、guidance，并引入 Flow Matching。
 
-This curated learning document summarizes a public article series and adds short notes that connect the topics. The original PDF identifies its LLM-assisted summaries, and the references below link the source articles.
+这份学习材料整理自一组公开文章，并补充了串联各主题的简短笔记。原 PDF 中已标记 LLM 辅助生成的总结，文末列出了对应的来源文章。
 
-## What I Focused On
+## 关注重点
 
-- Connecting microscopic random motion with macroscopic density evolution.
-- Understanding SDE and ODE descriptions through Fokker-Planck and continuity equations.
-- Seeing why reverse-time generation reduces to learning a score function.
-- Relating stochastic diffusion sampling to deterministic probability flow ODEs.
-- Building a conceptual bridge from diffusion models to Flow Matching.
+- 建立微观随机运动与宏观概率密度演化之间的联系。
+- 通过 Fokker–Planck 方程和连续性方程理解 SDE 与 ODE 两种描述。
+- 理解逆向生成为何可以归结为学习 score function。
+- 对比随机扩散采样与确定性的 Probability Flow ODE。
+- 建立从扩散模型过渡到 Flow Matching 的概念桥梁。
 
-## Knowledge Map
+## 知识脉络
 
 ```text
-Brownian Motion
-    -> Wiener Process and Ito Calculus
-    -> Stochastic Differential Equations
-    -> Fokker-Planck Equation
-    -> Reverse-time SDE
+布朗运动
+    -> Wiener 过程与 Itô 微积分
+    -> 随机微分方程（SDE）
+    -> Fokker-Planck 方程
+    -> 逆向 SDE
     -> Denoising Score Matching
     -> Probability Flow ODE
     -> Guidance
     -> Flow Matching
 ```
 
-## Key Takeaways
+## 核心收获
 
-1. The continuous limit of a random walk is modeled by a Wiener process, which provides the stochastic building block used by diffusion SDEs.
-2. A Lagrangian view follows individual stochastic trajectories, while an Eulerian view tracks how the population density evolves.
-3. SDEs and Fokker-Planck equations describe the same process at different levels: sample paths and probability densities.
-4. Ito calculus keeps a second-order correction because Wiener increments scale differently from ordinary time increments.
-5. Reverse-time SDEs introduce the score, `∇x log p_t(x)`, as the quantity needed to reverse diffusion.
-6. Denoising score matching replaces an intractable marginal score with a tractable conditional objective under the forward perturbation process.
-7. A probability flow ODE removes stochasticity while preserving the same time-dependent marginal distributions as the corresponding SDE.
-8. Classifier and classifier-free guidance modify the sampling direction to trade diversity for stronger conditional alignment.
-9. Flow Matching instead trains a deterministic velocity field that transports samples from a simple distribution to the data distribution.
+1. 随机游走的连续极限可由 Wiener 过程描述，它构成了扩散 SDE 的基本随机过程。
+2. Lagrangian 视角跟踪单个随机轨迹，Eulerian 视角则描述整体概率密度如何演化。
+3. SDE 与 Fokker–Planck 方程从不同层次描述同一随机过程：前者对应样本路径，后者对应概率密度。
+4. Wiener 增量与普通时间增量具有不同的尺度关系，因此 Itô 微积分会保留二阶修正项。
+5. 逆向 SDE 引入 score `∇x log p_t(x)`，它是反转扩散过程所需的关键量。
+6. Denoising Score Matching 将难以直接求解的边缘分布 score，替换为前向扰动过程下可计算的条件目标。
+7. Probability Flow ODE 去除了随机项，同时与对应 SDE 保持相同的时变边缘分布。
+8. Classifier guidance 与 classifier-free guidance 通过改变采样方向，在多样性和条件一致性之间进行权衡。
+9. Flow Matching 直接学习确定性的速度场，将样本从简单分布输运到数据分布。
 
-## Material
+## 材料
 
-- [Diffusion / SDE / Flow Matching learning notes](diffusion-sde-flow-notes.pdf)
+- [扩散模型 / SDE / Flow Matching 学习笔记](diffusion-sde-flow-notes.pdf)
 
-## References
+## 参考资料
 
-The main source is a 2025 WeChat article series by Sun Bingbing, supplemented by a Flow Matching lecture by cheern:
+主要来源为孙冰冰在 2025 年发布的微信文章系列，并补充了 cheern 的 Flow Matching 课程：
 
-1. [From Brownian motion to the Wiener process](https://mp.weixin.qq.com/s/iyyui_SOGU3gj2UJ06Ukbw)
-2. [Lagrangian and Eulerian views of diffusion](https://mp.weixin.qq.com/s/XKgtZhLm0TMKsmCkB7SEkg)
-3. [SDE, ODE, Fokker-Planck, and Liouville equations](https://mp.weixin.qq.com/s/3TyrYG7jFtOAcG0kQZ148w)
-4. [Ito integration and stochastic terms](https://mp.weixin.qq.com/s/oCTG08AqBF3TJtpgoT_stw)
-5. [Forward and reverse diffusion processes](https://mp.weixin.qq.com/s/ZhjlJ29UQUnPVChD2BS9Nw)
-6. [Reverse-time SDE](https://mp.weixin.qq.com/s/8y-OCj8_EzdoklfPyj-0Kw)
-7. [Denoising score matching](https://mp.weixin.qq.com/s/Lbns01ZwEgu9DeaPlsrLMQ)
+1. [从布朗运动到 Wiener 过程](https://mp.weixin.qq.com/s/iyyui_SOGU3gj2UJ06Ukbw)
+2. [扩散过程的 Lagrangian 与 Eulerian 视角](https://mp.weixin.qq.com/s/XKgtZhLm0TMKsmCkB7SEkg)
+3. [SDE、ODE、Fokker–Planck 与 Liouville 方程](https://mp.weixin.qq.com/s/3TyrYG7jFtOAcG0kQZ148w)
+4. [Itô 积分与随机项](https://mp.weixin.qq.com/s/oCTG08AqBF3TJtpgoT_stw)
+5. [前向与逆向扩散过程](https://mp.weixin.qq.com/s/ZhjlJ29UQUnPVChD2BS9Nw)
+6. [逆向 SDE](https://mp.weixin.qq.com/s/8y-OCj8_EzdoklfPyj-0Kw)
+7. [Denoising Score Matching](https://mp.weixin.qq.com/s/Lbns01ZwEgu9DeaPlsrLMQ)
 8. [VP-SDE](https://mp.weixin.qq.com/s/jVnvT80xDsjF6wPttHqrrQ)
-9. [Probability flow ODE](https://mp.weixin.qq.com/s/OEh5NtOYZ-o4aCxenAAoOg)
-10. [Classifier and classifier-free guidance](https://mp.weixin.qq.com/s/LHfRgh_tKPqA_Yvhq0Tmuw)
-11. [Flow Matching introduction](https://mp.weixin.qq.com/s/n7VobD5yVnkTAzl6Ya4n9g)
-12. [Generative AI Lecture 5: Guided Flow Matching](https://mp.weixin.qq.com/s/RNU0maaf_tkIA3w6a5w3EA)
+9. [Probability Flow ODE](https://mp.weixin.qq.com/s/OEh5NtOYZ-o4aCxenAAoOg)
+10. [Classifier 与 Classifier-Free Guidance](https://mp.weixin.qq.com/s/LHfRgh_tKPqA_Yvhq0Tmuw)
+11. [Flow Matching 入门](https://mp.weixin.qq.com/s/n7VobD5yVnkTAzl6Ya4n9g)
+12. [Generative AI Lecture 5：Guided Flow Matching](https://mp.weixin.qq.com/s/RNU0maaf_tkIA3w6a5w3EA)

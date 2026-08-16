@@ -1,56 +1,56 @@
 # 3D Gaussian Splatting
 
-**Technical Presentation · 2026-05-28**
+**技术分享 · 2026-05-28**
 
-## Overview
+## 概览
 
-This presentation traces the pipeline from multi-view images and camera parameters to rendered-image supervision: explicit 3D Gaussians, camera projection, screen-space footprints, alpha blending, differentiable rendering, densification, and optimization. It then examines how later work extends Gaussian primitives to geometry, semantics, language, editing, generation, and mapping.
+这份材料梳理了从多视角图像和相机参数到渲染图像监督的完整流程：显式 3D 高斯表示、相机投影、屏幕空间 footprint、alpha blending、可微渲染、致密化与参数优化。随后进一步讨论后续工作如何将高斯基元扩展到几何、语义、语言、编辑、生成和建图任务。
 
-## What I Focused On
+## 关注重点
 
-- The coordinate transformations that connect world-space Gaussians to image pixels.
-- How a 3D covariance becomes a 2D elliptical footprint under local projection.
-- Front-to-back alpha blending and visibility-aware color accumulation.
-- The differentiable loop from rendered-image loss back to Gaussian parameters.
-- Densification, pruning, initialization, and the gap between visual quality and geometric accuracy.
-- How later work adds geometry, semantic, language, and identity features to the Gaussian representation.
+- 将世界空间中的 3D 高斯连接到图像像素的坐标变换。
+- 3D 协方差如何在局部投影下变换为 2D 椭圆 footprint。
+- 从前向后的 alpha blending 与考虑可见性的颜色累积。
+- 渲染图像损失如何通过可微过程反向更新高斯参数。
+- 致密化、剪枝、初始化，以及渲染质量与几何精度之间的差距。
+- 后续工作如何为高斯表示加入几何、语义、语言和身份特征。
 
-## Knowledge Map
+## 知识脉络
 
 ```text
-Multi-view Images + Camera Parameters
-    -> Explicit 3D Gaussians
-    -> World-to-camera Transformation
-    -> Perspective Projection
-    -> 2D Gaussian Footprints
+多视角图像 + 相机参数
+    -> 显式 3D 高斯
+    -> 世界坐标到相机坐标
+    -> 透视投影
+    -> 2D 高斯 Footprint
     -> Alpha Blending
-    -> Differentiable Rendering
-    -> Loss and Gaussian Optimization
-    -> Novel-view Rendering
-    -> Geometry / Semantics / Generation / Mapping
+    -> 可微渲染
+    -> 损失与高斯参数优化
+    -> 新视角渲染
+    -> 几何 / 语义 / 生成 / 建图
 ```
 
-## Key Takeaways
+## 核心收获
 
-1. 3DGS represents a scene explicitly with Gaussian primitives carrying position, scale, rotation, opacity, and view-dependent color.
-2. Camera extrinsics transform Gaussian centers from world to camera coordinates; intrinsics and perspective division determine their image positions.
-3. Projecting only a Gaussian center is insufficient: the covariance must also be transformed to determine the size, orientation, and softness of its screen-space footprint.
-4. Parameterizing covariance through positive scales and rotation keeps it valid during optimization.
-5. Multiple footprints are composited front to back; each contribution depends on its local opacity and the transmittance left by nearer Gaussians.
-6. The renderer is differentiable, so image-space errors can update location, covariance, opacity, and color parameters.
-7. Adaptive densification adds detail where gradients indicate under-representation, while pruning removes ineffective primitives.
-8. High rendering quality does not guarantee accurate surfaces or depth, especially under sparse views, weak texture, reflections, or poor initialization.
-9. Later methods attach depth, semantic, language, or identity features to Gaussians while retaining the explicit representation and renderer.
-10. A useful way to compare later methods is to ask which Gaussian attributes they add and which part of initialization, training, or rendering they change.
+1. 3DGS 使用显式高斯基元表示场景，每个基元包含位置、尺度、旋转、不透明度和视角相关颜色。
+2. 相机外参将高斯中心从世界坐标变换到相机坐标；内参与透视除法共同决定其图像位置。
+3. 仅投影高斯中心并不充分，还需要变换协方差，才能确定屏幕空间 footprint 的大小、方向和柔和程度。
+4. 通过正尺度和旋转参数化协方差，可以在优化过程中保持其有效性。
+5. 多个 footprint 按深度从前向后合成；每项贡献取决于局部不透明度，以及更近高斯透射后剩余的 transmittance。
+6. 渲染器是可微的，因此图像空间误差可以更新位置、协方差、不透明度和颜色参数。
+7. 自适应致密化在梯度表明表示不足的位置增加细节，剪枝则移除作用较小的基元。
+8. 较高的渲染质量并不必然意味着准确的表面或深度，尤其是在视角稀疏、纹理较弱、存在反射或初始化较差时。
+9. 后续方法在保留显式表示和渲染器的同时，为高斯加入深度、语义、语言或身份特征。
+10. 比较后续方法时，可以关注它们增加了哪些高斯属性，以及修改了初始化、训练或渲染流程中的哪一部分。
 
-## Material
+## 材料
 
-- [3D Gaussian Splatting slides](slides.pdf) - 87 pages
+- [3D Gaussian Splatting 技术分享](slides.pdf) - 87 页
 
-## References
+## 参考资料
 
 - Kerbl et al., [3D Gaussian Splatting for Real-Time Radiance Field Rendering](https://arxiv.org/abs/2308.04079)
-- [Official 3D Gaussian Splatting project](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
+- [3D Gaussian Splatting 官方项目](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)
 - Lei Mao, [Camera Intrinsics and Extrinsics](https://leimao.github.io/blog/Camera-Intrinsics-Extrinsics/)
 - PyTorch3D, [Cameras](https://pytorch3d.org/docs/cameras)
 - Hugging Face, [Introduction to 3D Gaussian Splatting](https://huggingface.co/blog/gaussian-splatting)

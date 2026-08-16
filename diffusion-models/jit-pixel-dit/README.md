@@ -1,51 +1,51 @@
-# JiT: Understanding Large-Patch Pixel-space DiT
+# JiT：理解大 Patch 像素空间 DiT
 
-**Technical Presentation · 2025-12-04**
+**技术分享 · 2025-12-04**
 
-## Overview
+## 概览
 
-This presentation studies why a minimalist pixel-space Diffusion Transformer becomes difficult to train with large patches and high-dimensional tokens. It first reviews DDPM, ADM, VAEs, latent diffusion, and DiT, then examines JiT's prediction target, patch-size experiments, manifold-based explanation, comparisons with latent-space models, and limitations.
+这份材料讨论一个极简的像素空间 Diffusion Transformer 在大 Patch 和高维 token 条件下为何难以训练。内容先回顾 DDPM、ADM、VAE、潜空间扩散与 DiT，再分析 JiT 的预测目标、Patch 尺寸实验、基于流形的解释、与潜空间模型的对比，以及方法的局限。
 
-## What I Focused On
+## 关注重点
 
-- The efficiency and information trade-off between pixel-space and latent-space diffusion.
-- Why patchification reduces attention cost while increasing per-token dimensionality.
-- The difference between predicting clean images, noise, and velocity.
-- JiT's `x`-prediction with a velocity-space loss under rectified flow.
-- How the manifold hypothesis and a fixed hidden dimension explain the large-patch training problem.
-- What JiT does and does not imply about replacing VAE-based latent diffusion.
+- 像素空间扩散与潜空间扩散在效率和信息保留方面的权衡。
+- Patch 化为何能够降低 attention 成本，同时提高单个 token 的维度。
+- 预测干净图像、噪声和速度三种目标之间的区别。
+- JiT 在 rectified flow 下采用的 `x`-prediction 与 velocity-space loss。
+- 如何用流形假设和固定 hidden dimension 解释大 Patch 的训练困难。
+- JiT 对替代 VAE 潜空间扩散能够说明什么，以及不能说明什么。
 
-## Knowledge Map
+## 知识脉络
 
 ```text
 DDPM / ADM
-    -> VAE and Latent Diffusion
-    -> DiT and patch tokens
-    -> Pixel-space diffusion
-    -> Large patches and high-dimensional tokens
-    -> x / epsilon / velocity prediction targets
-    -> JiT: x-prediction + velocity loss
-    -> Manifold explanation and empirical validation
+    -> VAE 与潜空间扩散
+    -> DiT 与 Patch Token
+    -> 像素空间扩散
+    -> 大 Patch 与高维 Token
+    -> x / epsilon / velocity 预测目标
+    -> JiT：x-prediction + velocity loss
+    -> 流形解释与实验验证
 ```
 
-## Key Takeaways
+## 核心收获
 
-1. Latent diffusion gains efficiency through a learned bottleneck, but its VAE can lose detail and separates representation learning from diffusion training.
-2. Pixel-space diffusion removes the external tokenizer and enables end-to-end learning, but exposes the model to much higher-dimensional inputs.
-3. Larger patches reduce token count and quadratic attention cost, while rapidly increasing the raw dimension represented by each token.
-4. When the patch dimension exceeds the Transformer hidden size, the input projection becomes a strong compression bottleneck.
-5. The paper explains the result through a manifold view: clean images are concentrated near a lower-dimensional structure, while Gaussian noise fills the ambient high-dimensional space.
-6. JiT outputs a clean-image prediction and evaluates it through an equivalent velocity-space loss in a rectified-flow formulation.
-7. The reported experiments show that velocity prediction remains competitive for small patches, while clean-image prediction becomes substantially better for large patches.
-8. Patch size, prediction target, model capacity, and data space must be evaluated together rather than treated as independent design choices.
-9. JiT is best understood as a specialized recipe for large-patch pixel DiTs, not a universal argument that all diffusion models should use clean-image prediction.
-10. Its simple patchify/unpatchify design remains computationally demanding and does not eliminate the representation and efficiency trade-offs that motivate latent diffusion.
+1. 潜空间扩散通过学习得到的瓶颈提高效率，但 VAE 可能损失细节，并将表征学习与扩散训练分离。
+2. 像素空间扩散移除了外部 tokenizer，能够端到端学习，但模型需要直接处理维度更高的输入。
+3. 增大 Patch 可以减少 token 数量和二次复杂度的 attention 成本，但单个 token 所代表的原始维度会迅速增加。
+4. 当 Patch 维度超过 Transformer 的 hidden dimension 时，输入投影会形成明显的压缩瓶颈。
+5. 论文从流形视角解释这一现象：干净图像集中在较低维的结构附近，而高斯噪声会填充高维环境空间。
+6. JiT 输出干净图像预测，并在 rectified-flow 形式下通过等价的 velocity-space loss 进行训练。
+7. 论文实验表明，velocity prediction 在小 Patch 下仍有竞争力，而 clean-image prediction 在大 Patch 下明显更好。
+8. Patch 尺寸、预测目标、模型容量和数据空间需要联合评估，不能被视为相互独立的设计选择。
+9. JiT 更适合被理解为面向大 Patch 像素 DiT 的专门方案，不能据此推导所有扩散模型都应采用干净图像预测。
+10. 简单的 patchify/unpatchify 设计仍需要较高计算成本，也没有消除促使潜空间扩散产生的表征与效率权衡。
 
-## Material
+## 材料
 
-- [JiT: Understanding Large-Patch Pixel-space DiT slides](slides.pdf) - 95 pages
+- [JiT：理解大 Patch 像素空间 DiT](slides.pdf) - 95 页
 
-## References
+## 参考资料
 
 - Li and He, [Back to Basics: Let Denoising Generative Models Denoise](https://arxiv.org/abs/2511.13720)
 - Peebles and Xie, [Scalable Diffusion Models with Transformers](https://arxiv.org/abs/2212.09748)

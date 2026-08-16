@@ -1,32 +1,32 @@
-# Research Notes
+# 技术知识总结与分享
 
-Technical notes and presentations on diffusion models, 3D vision, and their underlying mathematical foundations.
+本仓库整理扩散模型、3D 视觉及其数学基础相关的学习笔记和技术分享。
 
-The repository is organized by topic. Each entry keeps the original material, the date it was prepared, and a short map of what I learned.
+内容按主题组织。每个条目保留原始材料、整理日期和一份简要的知识脉络。
 
-## Learning Timeline
+## 学习时间线
 
-| Date | Topic | Area | Material |
+| 日期 | 主题 | 方向 | 材料类型 |
 | --- | --- | --- | --- |
-| 2025-07-17 | [Diffusion, SDE, and Flow Foundations](diffusion-models/foundations/README.md) | Diffusion Models | Learning Notes |
-| 2025-08-21 | [FACM: Flow-Anchored Consistency Models](diffusion-models/facm/README.md) | Diffusion / Flow | Foundations + Paper Reading |
-| 2025-12-04 | [JiT: Understanding Large-Patch Pixel-space DiT](diffusion-models/jit-pixel-dit/README.md) | Diffusion Models / DiT | Technical Presentation |
-| 2026-05-28 | [3D Gaussian Splatting](3d-vision/3d-gaussian-splatting/README.md) | 3D Vision | Technical Presentation |
+| 2025-07-17 | [扩散模型、SDE 与 Flow 基础](diffusion-models/foundations/README.md) | 扩散模型 | 学习笔记 |
+| 2025-08-21 | [FACM：Flow-Anchored Consistency Models](diffusion-models/facm/README.md) | Diffusion / Flow | 理论基础 + 论文阅读 |
+| 2025-12-04 | [JiT：理解大 Patch 像素空间 DiT](diffusion-models/jit-pixel-dit/README.md) | 扩散模型 / DiT | 技术分享 |
+| 2026-05-28 | [3D Gaussian Splatting](3d-vision/3d-gaussian-splatting/README.md) | 3D 视觉 | 技术分享 |
 
-## Topics by Area
+## 按方向整理
 
-### Diffusion Models
+### 扩散模型
 
-- [Diffusion, SDE, and Flow Foundations](diffusion-models/foundations/README.md) - From Brownian motion and SDEs to score matching, probability flow ODEs, and Flow Matching.
-- [FACM](diffusion-models/facm/README.md) - Background on diffusion, flow, and consistency models, followed by a focused paper reading.
-- [JiT: Understanding Large-Patch Pixel-space DiT](diffusion-models/jit-pixel-dit/README.md) - Pixel-space versus latent-space diffusion, large patches, high-dimensional tokens, and prediction targets.
+- [扩散模型、SDE 与 Flow 基础](diffusion-models/foundations/README.md) - 从布朗运动和随机微分方程出发，梳理 score matching、Probability Flow ODE 与 Flow Matching。
+- [FACM](diffusion-models/facm/README.md) - 先梳理扩散、Flow 和一致性模型的理论背景，再集中阅读 FACM。
+- [JiT：理解大 Patch 像素空间 DiT](diffusion-models/jit-pixel-dit/README.md) - 对比像素空间与潜空间扩散，讨论大 Patch、高维 token 和预测目标。
 
-### 3D Vision
+### 3D 视觉
 
-- [3D Gaussian Splatting](3d-vision/3d-gaussian-splatting/README.md) - Camera geometry, Gaussian projection, differentiable rendering, optimization, and later applications.
+- [3D Gaussian Splatting](3d-vision/3d-gaussian-splatting/README.md) - 相机几何、高斯投影、可微渲染、参数优化及后续应用。
 
-## About the Materials
+## 关于材料
 
-Each topic README records my understanding of the cited material and links the original papers or references. Figures and referenced ideas are attributed to their sources.
+各主题 README 记录我对引用材料的理解，并提供原论文或参考资料链接。图表和引用观点均标注来源。
 
-The July 2025 notes curate public articles; LLM-assisted summaries are identified in the PDF alongside their sources.
+2025 年 7 月的笔记整理自公开文章；原 PDF 中标注了 LLM 辅助生成的总结及对应来源。
